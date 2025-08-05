@@ -1,1 +1,15 @@
+[package]
+name = "PaymentSplitter"
+version = "1.0.0"
+authors = ["Your Name"]
 
+[addresses]
+payment_splitter = "0x4ec1621b80805665e6d9d4c94531f7f0c9642315bf2c980eff07a5c6b1cbc4da"
+
+[dev-addresses]
+payment_splitter = "0x123"
+
+[dependencies.AptosFramework]
+git = "https://github.com/aptos-labs/aptos-core.git"
+rev = "mainnet"
+subdir = "aptos-move/framework/aptos-framework"
