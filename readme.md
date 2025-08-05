@@ -1,0 +1,317 @@
+# 🔄 Aptos Payment Splitter
+
+**A decentralized micro payment splitter for content creators built on Aptos blockchain**
+
+> 🏆 **Aptos Rise Hackathon Submission** - DeFi/Payments Category
+
+[![Aptos](https://img.shields.io/badge/Aptos-Blockchain-blue)](https://aptos.dev/) [![React](https://img.shields.io/badge/React-18.2.0-blue)](https://reactjs.org/) [![Move](https://img.shields.io/badge/Move-Smart%20Contract-purple)](https://move-language.github.io/) [![License](https://img.shields.io/badge/License-MIT-green)](LICENSE)
+
+## 🌟 **Key Features**
+
+- **🎯 Automated Payment Distribution**: Split payments to multiple recipients with custom percentages
+- **⚡ Single Transaction Execution**: Distribute to all recipients in one blockchain transaction
+- **🔒 Decentralized & Secure**: Built on Aptos blockchain with Move smart contracts
+- **💼 Content Creator Focused**: Perfect for revenue sharing among collaborators
+- **📱 Modern Web Interface**: Responsive UI with multi-wallet support
+- **🌐 Real-time Updates**: Live transaction tracking and balance monitoring
+
+## 🎥 **Live Demo**
+
+- **🌐 Frontend**: [https://your-app.vercel.app](https://your-app.vercel.app)
+- **📜 Smart Contract**: `0xYOUR_CONTRACT_ADDRESS`
+- **🔍 Explorer**: [View on Aptos Explorer](https://explorer.aptoslabs.com/account/YOUR_ADDRESS?network=devnet)
+- **🎬 Demo Video**: [Watch Demo](https://your-demo-video-link)
+
+## 💡 **Problem & Solution**
+
+### The Problem
+Content creators often struggle with:
+- Manual revenue calculations for collaborators
+- Multiple transaction fees for distributions  
+- Trust issues in payment sharing
+- Complex accounting for tax purposes
+
+### Our Solution
+Aptos Payment Splitter automates the entire process:
+1. **Set Once**: Define recipients and percentages
+2. **Pay Once**: Execute single transaction to distribute to all
+3. **Track Everything**: Transparent on-chain records
+4. **Save Fees**: Bulk distribution reduces gas costs
+
+## 🏗️ **Technical Architecture**
+
+```mermaid
+graph TB
+    A[User Interface<br/>React + Wallet] --> B[Backend API<br/>Node.js + Express]
+    B --> C[Aptos Blockchain<br/>Move Smart Contract]
+    
+    D[Payment Split Creation] --> E[On-Chain Storage]
+    F[Payment Execution] --> G[Automatic Distribution]
+    G --> H[Event Emission]
+    
+    C --> E
+    C --> G
+    C --> H
+```
+
+### Smart Contract Functions
+- `create_split()` - Define payment distribution rules
+- `execute_payment()` - Distribute funds to all recipients
+- `get_split()` - View split configuration
+- `toggle_split_status()` - Enable/disable splits
+
+## 🚀 **Quick Start Guide**
+
+### Prerequisites
+- Node.js 16+ 
+- Git
+- Aptos CLI
+- Aptos wallet (Petra recommended)
+
+### 1. Clone & Setup
+```bash
+git clone https://github.com/yourusername/aptos-payment-splitter.git
+cd aptos-payment-splitter
+```
+
+### 2. Install Dependencies
+```bash
+# Backend
+cd backend
+npm install express cors @aptos-labs/ts-sdk helmet morgan dotenv compression
+
+# Frontend
+cd ../frontend
+npm install react react-dom react-scripts @aptos-labs/wallet-adapter-react @aptos-labs/wallet-adapter-ant-design @aptos-labs/ts-sdk
+```
+
+### 3. Deploy Smart Contract
+```bash
+cd ../move
+
+# Initialize Aptos account
+aptos init --network devnet
+
+# Compile & deploy
+aptos move compile
+aptos move publish --named-addresses payment_splitter=YOUR_ACCOUNT_ADDRESS
+```
+
+### 4. Configure Environment
+```bash
+# Backend .env
+echo "MODULE_ADDRESS=YOUR_DEPLOYED_ADDRESS" > backend/.env
+echo "PORT=3001" >> backend/.env
+
+# Frontend .env.local
+echo "REACT_APP_MODULE_ADDRESS=YOUR_DEPLOYED_ADDRESS" > frontend/.env.local
+```
+
+### 5. Run Application
+```bash
+# Start backend (Terminal 1)
+cd backend && npm start
+
+# Start frontend (Terminal 2)  
+cd frontend && npm start
+```
+
+Visit `http://localhost:3000` and connect your wallet!
+
+## 📱 **How to Use**
+
+### For Content Creators
+1. **Connect Wallet**: Link your Aptos wallet (Petra/Martian/Rise)
+2. **Create Split**: 
+   - Name your revenue split (e.g., "YouTube Video #123")
+   - Add collaborator addresses
+   - Set percentage for each (must sum to 100%)
+3. **Share Split ID**: Give the Split ID to whoever will send payments
+4. **Receive Automatically**: Payments are distributed instantly when executed
+
+### For Payers
+1. **Get Split ID**: Obtain from the content creator
+2. **Load Split**: Enter Split ID to view distribution details
+3. **Enter Amount**: Specify payment amount in APT
+4. **Execute**: Confirm transaction - funds distribute automatically
+
+## 🎯 **Use Cases**
+
+### Content Creation
+- **YouTube Collaborations**: Split ad revenue among creators
+- **Podcast Revenue**: Distribute sponsorship payments
+- **Blog Partnerships**: Share affiliate commissions
+
+### Gaming & NFTs
+- **Guild Rewards**: Distribute gaming earnings
+- **NFT Collaborations**: Split royalties among artists
+- **Streaming Tips**: Share donations among team members
+
+### Business Applications
+- **Freelancer Teams**: Split project payments
+- **Affiliate Networks**: Distribute commissions
+- **Investment Groups**: Share returns
+
+## 💻 **Technical Implementation**
+
+### Smart Contract (Move)
+```move
+// Core payment split structure
+struct PaymentSplit has key, store {
+    creator: address,
+    recipients: vector<address>,
+    percentages: vector<u64>,
+    name: String,
+    is_active: bool,
+}
+
+// Execute payment distribution
+public entry fun execute_payment(
+    payer: &signer,
+    split_id: u64,
+    total_amount: u64,
+) acquires PaymentSplitStore
+```
+
+### Frontend (React)
+- **Wallet Integration**: Multi-wallet support with Aptos Wallet Adapter
+- **Real-time Updates**: Live balance and transaction monitoring
+- **Responsive Design**: Mobile-first UI with modern styling
+- **Error Handling**: Comprehensive user feedback
+
+### Backend (Node.js)
+- **Aptos Integration**: Direct blockchain interaction
+- **API Endpoints**: RESTful services for data queries
+- **Rate Limiting**: Protection against abuse
+- **Health Monitoring**: System status endpoints
+
+## 🔒 **Security Features**
+
+- **On-Chain Validation**: All splits validated by smart contract
+- **Creator Control**: Only split creators can modify configurations
+- **Percentage Verification**: Automatic validation of 100% total
+- **Event Logging**: All transactions recorded on-chain
+- **Address Validation**: Prevents invalid recipient addresses
+
+## 📊 **Performance Metrics**
+
+- **Transaction Speed**: ~2-3 seconds on Aptos devnet
+- **Gas Efficiency**: Single transaction for multiple recipients
+- **Scalability**: Support for unlimited recipients per split
+- **Uptime**: 99.9% availability target
+
+## 🛠️ **Development & Testing**
+
+### Run Tests
+```bash
+# Smart contract tests
+cd move && aptos move test
+
+# Backend tests
+cd backend && npm test
+
+# Frontend tests
+cd frontend && npm test
+```
+
+### Local Development
+```bash
+# Run all services
+npm run dev
+
+# Individual services
+npm run backend  # Backend only
+npm run frontend # Frontend only
+```
+
+## 🚀 **Deployment**
+
+### Production Deployment
+```bash
+# Build frontend
+cd frontend && npm run build
+
+# Deploy to Vercel
+npx vercel --prod
+
+# Deploy backend to Railway
+railway up
+
+# Deploy contract to mainnet
+aptos move publish --network mainnet
+```
+
+## 🤝 **Contributing**
+
+We welcome contributions! Please see our [Contributing Guidelines](CONTRIBUTING.md).
+
+1. Fork the repository
+2. Create feature branch (`git checkout -b feature/AmazingFeature`)
+3. Commit changes (`git commit -m 'Add AmazingFeature'`)
+4. Push to branch (`git push origin feature/AmazingFeature`)
+5. Open Pull Request
+
+## 📄 **License**
+
+This project is licensed under the MIT License - see [LICENSE](LICENSE) file for details.
+
+## 🏆 **Aptos Rise Hackathon**
+
+### Submission Details
+- **Category**: DeFi/Payments
+- **Team**: [Your Name/Team]
+- **Submission Date**: [Date]
+- **Built For**: Content creators and collaborative payments
+
+### Innovation Highlights
+1. **First-of-its-kind** payment splitter on Aptos
+2. **Gas-efficient** bulk distribution mechanism
+3. **User-friendly** interface for non-technical users
+4. **Real-world utility** for content creator economy
+
+### Technical Achievements
+- ✅ Full-stack dApp with modern tech stack
+- ✅ Production-ready smart contract
+- ✅ Comprehensive testing suite
+- ✅ Mobile-responsive design
+- ✅ Multi-wallet integration
+- ✅ Real-time blockchain interaction
+
+## 📞 **Contact & Support**
+
+- **GitHub**: [@yourusername](https://github.com/yourusername)
+- **Twitter**: [@yourusername](https://twitter.com/yourusername)
+- **Email**: your.email@example.com
+- **Discord**: YourUsername#1234
+
+## 🙏 **Acknowledgments**
+
+- [Aptos Labs](https://aptoslabs.com/) for the incredible blockchain platform
+- [Aptos Rise](https://aptos.dev/en/build/get-started/developer-setup) hackathon organizers
+- Aptos developer community for resources and support
+- Beta testers and early adopters
+
+---
+
+## 📈 **Roadmap**
+
+### Phase 1 (Current)
+- ✅ Core payment splitting functionality
+- ✅ Web interface with wallet integration
+- ✅ Aptos devnet deployment
+
+### Phase 2 (Next)
+- 🔄 Mainnet deployment
+- 🔄 Mobile app development
+- 🔄 Advanced analytics dashboard
+
+### Phase 3 (Future)
+- 📋 Integration with content platforms
+- 📋 Recurring payment schedules
+- 📋 Multi-token support
+
+---
+
+**⭐ Star this repository if you find it useful!**
+
+**🎯 Built for Aptos Rise Hackathon - Revolutionizing Creator Economy Payments**
