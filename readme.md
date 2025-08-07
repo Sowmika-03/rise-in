@@ -1,6 +1,9 @@
 # 🔄 Aptos Payment Splitter
 
 **A decentralized micro payment splitter for content creators built on Aptos blockchain**
+![Screenshot 2025-08-07 035054](https://github.com/user-attachments/assets/162ca5cb-92a5-442c-9bb5-e0b4f53a817a)
+![Screenshot 2025-08-07 031947](https://github.com/user-attachments/assets/7c8de8b8-ef60-4187-9f49-4737245814d5)
+
 
 > 🏆 **Aptos Rise Hackathon Submission** - DeFi/Payments Category
 
@@ -17,10 +20,8 @@
 
 ## 🎥 **Live Demo**
 
-- **🌐 Frontend**: [https://your-app.vercel.app](https://your-app.vercel.app)
-- **📜 Smart Contract**: `0xYOUR_CONTRACT_ADDRESS`
-- **🔍 Explorer**: [View on Aptos Explorer](https://explorer.aptoslabs.com/account/YOUR_ADDRESS?network=devnet)
-- **🎬 Demo Video**: [Watch Demo](https://your-demo-video-link)
+- **📜 Smart Contract**: `0x5056e52fedf1506497b6e811e4341bb18e4369f039bb448dcb51f771a8c9f9ea`
+- **🔍 Explorer**: [View on Aptos Explorer](https://explorer.aptoslabs.com/?network=devnet)
 
 ## 💡 **Problem & Solution**
 
