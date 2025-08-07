@@ -5,7 +5,27 @@ import PaymentSplitter from './PaymentSplitter';
 import './App.css';
 
 function App() {
-  const { connected, account, network } = useWallet();
+  const { connected, account, network, connect, disconnect, wallets } = useWallet();
+
+  const handleConnect = async () => {
+    try {
+      // Specifically try to connect to Petra
+      const petraWallet = wallets.find(wallet => 
+        wallet.name.toLowerCase().includes('petra') || 
+        wallet.name.toLowerCase().includes('aptos')
+      );
+      
+      if (petraWallet) {
+        await connect(petraWallet.name);
+      } else if (wallets && wallets.length > 0) {
+        // Fallback to first available wallet
+        await connect(wallets[0].name);
+      }
+    } catch (error) {
+      console.error('Connection failed:', error);
+      console.log('Available wallets:', wallets);
+    }
+  };
 
   return (
     <div className="App">
@@ -15,16 +35,64 @@ function App() {
           <p>Split payments automatically to multiple recipients</p>
           <div className="wallet-section">
             <WalletSelector />
+            {/* Backup manual connect button */}
+            {!connected && (
+              <div>
+                <button 
+                  onClick={handleConnect}
+                  style={{
+                    padding: '12px 24px',
+                    backgroundColor: '#1890ff',
+                    color: 'white',
+                    border: 'none',
+                    borderRadius: '6px',
+                    cursor: 'pointer',
+                    fontSize: '16px',
+                    marginTop: '10px'
+                  }}
+                >
+                  Connect Wallet (Manual)
+                </button>
+                <button 
+                  onClick={() => console.log('Available wallets:', wallets)}
+                  style={{
+                    padding: '8px 16px',
+                    backgroundColor: '#52c41a',
+                    color: 'white',
+                    border: 'none',
+                    borderRadius: '4px',
+                    cursor: 'pointer',
+                    marginTop: '10px',
+                    marginLeft: '10px'
+                  }}
+                >
+                  Debug Wallets
+                </button>
+              </div>
+            )}
             {connected && (
               <div className="wallet-info">
                 <p>Connected: {account?.address?.slice(0, 6)}...{account?.address?.slice(-4)}</p>
                 <p>Network: {network?.name || 'devnet'}</p>
+                <button 
+                  onClick={disconnect}
+                  style={{
+                    padding: '8px 16px',
+                    backgroundColor: '#ff4d4f',
+                    color: 'white',
+                    border: 'none',
+                    borderRadius: '4px',
+                    cursor: 'pointer',
+                    marginTop: '10px'
+                  }}
+                >
+                  Disconnect
+                </button>
               </div>
             )}
           </div>
         </div>
       </header>
-
       <main className="App-main">
         {connected ? (
           <PaymentSplitter />
@@ -49,7 +117,6 @@ function App() {
           </div>
         )}
       </main>
-
       <footer className="App-footer">
         <p>Built on Aptos Blockchain | Devnet</p>
       </footer>

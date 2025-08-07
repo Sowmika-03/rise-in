@@ -1,26 +1,17 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { AptosWalletAdapterProvider } from '@aptos-labs/wallet-adapter-react';
-import { PetraWallet } from 'petra-plugin-wallet-adapter';
-import { MartianWallet } from '@martianwallet/aptos-wallet-adapter';
-import { RiseWallet } from '@rise-wallet/wallet-adapter';
 import { Network } from '@aptos-labs/ts-sdk';
 import App from './App';
 import './index.css';
 
-// Wallet configuration
-const wallets = [
-  new PetraWallet(),
-  new MartianWallet(),
-  new RiseWallet(),
-];
-
+// The newer wallet adapter automatically detects available wallets
+// No need to manually import individual wallet packages
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
 root.render(
   <React.StrictMode>
     <AptosWalletAdapterProvider 
-      plugins={wallets} 
       autoConnect={true}
       dappConfig={{
         network: Network.DEVNET,
