@@ -1,6 +1,7 @@
+
 const express = require('express');
 const cors = require('cors');
-const { Aptos, AptosConfig, Network } = require('aptos');
+const { Aptos, AptosConfig, Network } = require('@aptos-labs/ts-sdk');
 
 const app = express();
 const PORT = process.env.PORT || 3001;
